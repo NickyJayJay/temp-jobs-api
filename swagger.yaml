@@ -1,91 +1,96 @@
 openapi: 3.0.0
 info:
   title: Jobs API
+  description: ''
   contact: {}
   version: '1.0'
 servers:
-  - url: https://jobs-api-06.herokuapp.com/api/v1
-    variables: {}
+- url: https://temp-jobs-api-48m6.onrender.com/api/v1
+  variables: {}
 paths:
-  /auth/register:
-    post:
+  /jobs/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The job ID
+    delete:
       tags:
-        - Auth
-      summary: Register User
-      operationId: RegisterUser
-      parameters: []
+      - Jobs
+      summary: Delete Job
+      description: ''
+      operationId: DeleteJob
+      parameters:
+      - name: User-Agent
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: insomnia/8.4.1
+      - name: Authorization
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: Bearer {% response 'body', 'req_fd63a56ec4124966899da78cd802a11c', 'b64::JC50b2tlbg==::46b', 'never', 60 %}
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            text/plain:
+              schema: {}
+      deprecated: false
+    patch:
+      tags:
+      - Jobs
+      summary: Update Job
+      description: ''
+      operationId: UpdateJob
+      parameters:
+      - name: User-Agent
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: insomnia/8.4.1
+      - name: Authorization
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: Bearer {% response 'body', 'req_fd63a56ec4124966899da78cd802a11c', 'b64::JC50b2tlbg==::46b', 'never', 60 %}
       requestBody:
         description: ''
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/RegisterUserRequest'
+              allOf:
+              - $ref: '#/components/schemas/UpdateJobRequest'
+              - example:
+                  company: Sam's Place
+                  position: intern
             example:
-              name: bob
-              email: bob@gmail.com
-              password: secret
+              company: Sam's Place
+              position: intern
         required: true
       responses:
         '200':
           description: ''
           headers: {}
-      deprecated: false
-      security: []
-  /auth/login:
-    post:
-      tags:
-        - Auth
-      summary: Login User
-      operationId: LoginUser
-      parameters: []
-      requestBody:
-        description: ''
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/LoginUserRequest'
-            example:
-              email: susan@gmail.com
-              password: secret
-        required: true
-      responses:
-        '200':
-          description: ''
-          headers: {}
-      deprecated: false
-      security: []
-  /jobs:
-    post:
-      tags:
-        - Jobs
-      summary: Create Job
-      operationId: CreateJob
-      parameters: []
-      requestBody:
-        description: ''
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/CreateJobRequest'
-            example:
-              company: google
-              position: front-end developer
-        required: true
-      responses:
-        '200':
-          description: ''
-          headers: {}
-      deprecated: false
-    get:
-      tags:
-        - Jobs
-      summary: Get All Jobs
-      operationId: GetAllJobs
-      parameters: []
-      responses:
-        '200':
-          description: ''
-          headers: {}
+          content:
+            text/plain:
+              schema: {}
       deprecated: false
   /jobs/{id}:
     parameters:
@@ -97,118 +102,257 @@ paths:
         description: The job ID
     get:
       tags:
-        - Jobs
+      - Jobs
       summary: Get Single Job
+      description: ''
       operationId: GetSingleJob
-      parameters: []
+      parameters:
+      - name: User-Agent
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: insomnia/8.4.1
+      - name: Authorization
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: Bearer {% response 'body', 'req_fd63a56ec4124966899da78cd802a11c', 'b64::JC50b2tlbg==::46b', 'never', 60 %}
       responses:
         '200':
           description: ''
           headers: {}
+          content:
+            text/plain:
+              schema: {}
       deprecated: false
-
-    patch:
+  /jobs:
+    get:
       tags:
-        - Jobs
-      summary: Update Job
-      operationId: UpdateJob
-      parameters: []
+      - Jobs
+      summary: Get All Jobs
+      description: ''
+      operationId: GetAllJobs
+      parameters:
+      - name: User-Agent
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: insomnia/8.4.0
+      - name: Authorization
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: Bearer {% response 'body', 'req_fd63a56ec4124966899da78cd802a11c', 'b64::JC50b2tlbg==::46b', 'never', 60 %}
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            text/plain:
+              schema: {}
+      deprecated: false
+    post:
+      tags:
+      - Jobs
+      summary: Create Job
+      description: ''
+      operationId: CreateJob
+      parameters:
+      - name: User-Agent
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: insomnia/8.4.0
+      - name: Authorization
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: Bearer {% response 'body', 'req_fd63a56ec4124966899da78cd802a11c', 'b64::JC50b2tlbg==::46b', 'never', 60 %}
       requestBody:
         description: ''
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UpdateJobRequest'
+              allOf:
+              - $ref: '#/components/schemas/CreateJobRequest'
+              - example:
+                  company: Sam's Place
+                  position: associate
             example:
-              company: random
-              position: intern
+              company: Sam's Place
+              position: associate
         required: true
       responses:
         '200':
           description: ''
           headers: {}
+          content:
+            text/plain:
+              schema: {}
       deprecated: false
-    delete:
+  /auth/login:
+    post:
       tags:
-        - Jobs
-      summary: Delete Job
-      operationId: DeleteJob
-      parameters: []
+      - Auth
+      summary: Login User
+      description: ''
+      operationId: LoginUser
+      parameters:
+      - name: token
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+      - name: User-Agent
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: insomnia/8.4.0
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/LoginUserRequest'
+              - example:
+                  email: anna@gmail.com
+                  password: secret
+            example:
+              email: anna@gmail.com
+              password: secret
+        required: true
       responses:
         '200':
           description: ''
           headers: {}
+          content:
+            text/plain:
+              schema: {}
       deprecated: false
+      security: []
+  /auth/register:
+    post:
+      tags:
+      - Auth
+      summary: Register User
+      description: ''
+      operationId: RegisterUser
+      parameters:
+      - name: User-Agent
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: insomnia/8.3.0
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/RegisterUserRequest'
+              - example:
+                  name: sam
+            example:
+              name: sam
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            text/plain:
+              schema: {}
+      deprecated: false
+      security: []
 components:
   schemas:
+    UpdateJobRequest:
+      title: UpdateJobRequest
+      required:
+      - company
+      - position
+      type: object
+      properties:
+        company:
+          type: string
+        position:
+          type: string
+      example:
+        company: Sam's Place
+        position: intern
+    CreateJobRequest:
+      title: CreateJobRequest
+      required:
+      - company
+      - position
+      type: object
+      properties:
+        company:
+          type: string
+        position:
+          type: string
+      example:
+        company: Sam's Place
+        position: associate
+    LoginUserRequest:
+      title: LoginUserRequest
+      required:
+      - email
+      - password
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        email: anna@gmail.com
+        password: secret
     RegisterUserRequest:
       title: RegisterUserRequest
       required:
-        - name
-        - email
-        - password
+      - name
       type: object
       properties:
         name:
           type: string
-        email:
-          type: string
-        password:
-          type: string
       example:
-        name: bob
-        email: bob@gmail.com
-        password: secret
-    LoginUserRequest:
-      title: LoginUserRequest
-      required:
-        - email
-        - password
-      type: object
-      properties:
-        email:
-          type: string
-        password:
-          type: string
-      example:
-        email: susan@gmail.com
-        password: secret
-    CreateJobRequest:
-      title: CreateJobRequest
-      required:
-        - company
-        - position
-      type: object
-      properties:
-        company:
-          type: string
-        position:
-          type: string
-      example:
-        company: google
-        position: front-end developer
-    UpdateJobRequest:
-      title: UpdateJobRequest
-      required:
-        - company
-        - position
-      type: object
-      properties:
-        company:
-          type: string
-        position:
-          type: string
-      example:
-        company: random
-        position: intern
+        name: sam
   securitySchemes:
     httpBearer:
       type: http
       scheme: bearer
 security:
-  - httpBearer: []
+- httpBearer: []
 tags:
-  - name: Auth
-    description: ''
-  - name: Jobs
-    description: ''
+- name: Jobs
+  description: ''
+- name: Auth
+  description: ''
